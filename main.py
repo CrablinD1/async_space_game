@@ -2,7 +2,9 @@ import curses
 import random
 import time
 
-from space_garbage import fly_garbage
+
+
+from space_garbage import fill_orbit_with_garbage
 from animate_spaceship import animate_spaceship
 from blink_stars import blink
 from fire import fire
@@ -28,19 +30,10 @@ def draw(canvas):
     space_ship = animate_spaceship(canvas, row=max_screen_y / 2,
                                    column=max_screen_x / 2 - 2)
 
-    with open("./space_garbage/duck.txt", "r") as f:
-        garb_1 = f.read()
-    with open("./space_garbage/hubble.txt", "r") as f:
-        garb_2 = f.read()
-    with open("./space_garbage/lamp.txt", "r") as f:
-        garb_3 = f.read()
-
-    garbage_frames = [garb_1, garb_2, garb_3]
-    # space_garbate = fly_garbage(canvas, column=10, garbage_frame=garb_1)
-    garbage = [
-        fly_garbage(canvas, column=random.randint(0, max_screen_x), garbage_frame=random.choice(garbage_frames))
+    trash_cors = [
+        fill_orbit_with_garbage(canvas, max_screen_x) for _ in range(5)
     ]
-    coroutines = [*stars, shot, space_ship, *garbage]
+    coroutines = [*stars, shot, space_ship, *trash_cors]
 
     while True:
         for coroutine in coroutines.copy():
@@ -48,6 +41,7 @@ def draw(canvas):
                 coroutine.send(None)
             except StopIteration:
                 coroutines.remove(coroutine)
+
         if len(coroutines) == 0:
             break
         canvas.border()
