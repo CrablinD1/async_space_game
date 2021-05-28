@@ -8,6 +8,7 @@ from space_garbage import fill_orbit_with_garbage
 from animate_spaceship import animate_spaceship
 from blink_stars import blink
 from fire import fire
+from curses_tools import read_controls
 
 STARS = ["+", "*", ".", ":"]
 TIC_TIMEOUT = 0.1
@@ -31,8 +32,8 @@ def draw(canvas):
 
     loop.create_task(animate_spaceship(canvas, row=max_screen_y / 2,
                                        column=max_screen_x / 2 - 2))
-    loop.create_task(fire(canvas, start_row=max_screen_y / 2,
-                          start_column=max_screen_x / 2))
+
+    #loop.create_task(fire(canvas, start_row=max_screen_y / 2, start_column=max_screen_x / 2))
     loop.run_forever()
 
 

@@ -5,6 +5,7 @@ from tools import sleep
 from curses_tools import draw_frame
 
 
+
 def get_trash_frames():
     frames = []
     filesnames = os.listdir("./space_garbage")
