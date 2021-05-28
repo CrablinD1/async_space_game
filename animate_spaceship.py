@@ -1,6 +1,6 @@
 import asyncio
 from itertools import cycle
-
+from tools import sleep
 from curses_tools import draw_frame, get_frame_size, read_controls
 
 
@@ -25,6 +25,6 @@ async def animate_spaceship(canvas, row, column):
             column += columns_direction
 
         draw_frame(canvas, row, column, frame)
-        await asyncio.sleep(0)
+        await sleep()
         draw_frame(canvas, row, column, frame, negative=True)
         canvas.refresh()
